@@ -2,18 +2,26 @@ const itemSelector = ".screen__item";
 const screen = document.querySelector(".screen");
 const itemTemplate = document.querySelector("#template").content;
 
-const resetButton = document.querySelector(".button");
-const input = document.querySelector(".input");
-const tablo = document.querySelector(".tablo");
-const form = document.querySelector(".form");
+const startButton = document.querySelector(".button__start");
+const pauseButton = document.querySelector(".button__pause");
+const continueButton = document.querySelector(".button__continue");
+const resetButton = document.querySelector(".button__reset");
 
+const input = document.querySelector(".input__seconds");
+const inputBg = document.querySelector(".input__bg");
+const tablo = document.querySelector(".tablo");
+const formDuration = document.querySelector(".form__duration");
+const formBg = document.querySelector(".form__bg");
+
+const itemsGap = 10;
+const wrapperPadding = 20;
 const from = 1910;
 const until = 2025;
 
-let seconds = 10;
+let seconds = 2;
 let animationDuration = 1000 * seconds;
 
-tablo.textContent = "Сейчас длина анимации " + seconds + " сек.";
+tablo.textContent = "Длина анимации " + seconds + " сек.";
 
 function getArrFromRange(min, max) {
   const result = [];
@@ -41,10 +49,12 @@ function setItems() {
 
 function animateScreen(animationDuration) {
   const screenItemsLength = screen.querySelectorAll(itemSelector).length;
+  const screenItemHeight = screen.querySelector(itemSelector).offsetHeight;
+  const screenHeight = screen.offsetHeight;
 
-  const gaps = (screenItemsLength - 1) * 10;
-  const itemsHeight = (screenItemsLength - 1) * screen.offsetHeight;
-  const heightToShift = itemsHeight + gaps;
+  const gaps = (screenItemsLength - 1) * itemsGap;
+  const itemsHeight = (screenItemsLength - 1) * screenItemHeight;
+  const heightToShift = itemsHeight + gaps - screenHeight + wrapperPadding * 2;
 
   screen.animate(
     [
@@ -60,25 +70,45 @@ function animateScreen(animationDuration) {
   );
 }
 
-resetButton.addEventListener("click", () => {
+startButton.addEventListener("click", () => {
   animateScreen(seconds * 1000);
 });
+pauseButton.addEventListener("click", () => {
+  screen.getAnimations().forEach((animation) => {
+    animation.pause();
+  });
+});
+continueButton.addEventListener("click", () => {
+  screen.getAnimations().forEach((animation) => {
+    animation.play();
+  });
+});
+resetButton.addEventListener("click", () => {
+  screen.getAnimations().forEach((animation) => {
+    animation.cancel();
+  });
+});
 
-form.addEventListener("submit", (e) => {
+formBg.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  document.querySelector(".body").style.backgroundImage = `url(${inputBg.value})`;
+
+  console.log(inputBg.value);
+  e.target.reset();
+});
+
+formDuration.addEventListener("submit", (e) => {
   e.preventDefault();
 
   seconds = Number(input.value);
 
-  tablo.textContent = "Сейчас длина анимации " + seconds + " сек.";
+  tablo.textContent = "Длина анимации " + seconds + " сек.";
 
-  screen.getAnimations().forEach(animation => {
+  screen.getAnimations().forEach((animation) => {
     animation.finish();
   });
   e.target.reset();
 });
-
-// resetButton.addEventListener("click", (e) => {
-//   animateScreen();
-// });
 
 setItems();

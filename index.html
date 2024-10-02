@@ -1,35 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body class="body">
-    <!--1910-2025-->
-    <div class="wrapper">
-      <div class="screen">
-      </div>
-    </div>
 
-    <div class="controlls">
-      <button type="button" class="button">Запустить анимацию</button>
-      <div class="tablo">
-        
-      </div>
-      
-      <form action="submit" class="form">
-        <input type="number" placeholder="Введите длительность в секундах" class="input">
-        <button type="submit" class="submit">Установить время</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body class="body">
+  <!--1910-2025-->
+  <div class="wrapper">
+    <div class="screen">
+    </div>
+  </div>
+
+  <div class="controlls">
+    <div class="tablo"></div>
+    <button type="button" class="button__start">Запустить анимацию</button>
+    <div class="btns">
+      <button type="button" class="button__reset">на первый кадр</button>
+      <button type="button" class="button__pause">Пауза</button>
+      <button type="button" class="button__continue">Продолжить</button>
+    </div>
+    <form action="submit" class="form__duration">
+      <span>Установить время анимации</span>
+      <input type="number" placeholder="Введите длительность в секундах" class="input__seconds">
+      <button type="submit" class="submit">Установить время</button>
+    </form>
+
+    <div class="bg">
+      <form action="submit" class="form__bg">
+        <span>Установить фон</span>
+        <input type="text" class="input__bg" placeholder="Ссылка на новый фон">
+        <button type="submit" class="submit">Установить фон</button>
       </form>
-    </div>
 
-    <template id="template">
-      <div class="screen__item"></div>
-    </template>
-    
+    </div>
+  </div>
+
+  <template id="template">
+    <div class="screen__item"></div>
   </template>
-    <script src="./script.js"></script>
-  </body>
+
+  </template>
+  <script src="./script.js"></script>
+</body>
+
 </html>
