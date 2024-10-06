@@ -11,7 +11,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
   min-width: 320px;
@@ -23,6 +23,7 @@ body {
 }
 
 .wrapper {
+  margin-left: 80px;
   padding: 20px;
   border: 1px solid var(--text-color);
   border-radius: 8px;
